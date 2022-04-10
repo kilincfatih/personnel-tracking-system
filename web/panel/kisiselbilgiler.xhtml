@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Kisisel Bilgiler</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:commandButton action="/index" value="Home"/>
+        </h:form>
+        <hr />
+        <h:form>
+            Tc: <h:inputText value="#{KisiselBilgilerBean.entity.tc}"/>
+            <br></br>
+            İsim: <h:inputText value="#{KisiselBilgilerBean.entity.isim}"/>
+            <br></br>
+            Soyisim: <h:inputText value="#{KisiselBilgilerBean.entity.soyIsim}"/>
+            <br></br>
+            <h:commandButton rendered="#{KisiselBilgilerBean.entity.id==0}" action="#{KisiselBilgilerBean.create()}" value="Create"/>
+            <h:commandButton rendered="#{KisiselBilgilerBean.entity.id!=0}" action="#{KisiselBilgilerBean.update()}" value="Update"/>
+            <h:commandButton rendered="#{KisiselBilgilerBean.entity.id!=0}" action="#{KisiselBilgilerBean.clear()}" value="Clear Form"/>
+            <br></br>
+        </h:form>
+        <hr/>
+
+        <h:form>
+            <h:dataTable value="#{KisiselBilgilerBean.list}" var="entity">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{entity.id}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">TC</f:facet>
+                        #{entity.tc}
+                </h:column>  
+
+                <h:column>
+                    <f:facet name="header">İSİM</f:facet>
+                        #{entity.isim}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">SOYİSİM</f:facet>
+                        #{entity.soyIsim}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">ADMINISTRATION</f:facet>
+                    <h:commandButton action="#{KisiselBilgilerBean.delete(entity)}" value="Delete"/>
+                    <h:commandButton action="#{KisiselBilgilerBean.setEntity(entity)}" value="Update"/>
+                </h:column>                
+
+            </h:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+
