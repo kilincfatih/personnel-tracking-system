@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Departman Bilgileri</title>
+              <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:commandButton action="/index" value="Home"/>
+        </h:form>
+        <hr />
+        <h:form>
+            Personelin TC Numarası: <h:inputText value="#{DepartmanBilgileriBean.entity.tc}" required="true" requiredMessage="TC zorunludur"/>
+            <br></br>
+            Personelin Çalıştığı Departman: <h:inputText value="#{DepartmanBilgileriBean.entity.calistigiDepartman}" required="true" requiredMessage="DEPARTMAN zorunludur"/>
+            <br></br>
+            Personelin Mesleği: <h:inputText value="#{DepartmanBilgileriBean.entity.meslek}"/>
+            <br></br>
+            Personele Ait Zimmetli Eşyalar: <h:inputText value="#{DepartmanBilgileriBean.entity.zimmetliEsyalar}"/>
+            <br></br>
+            Personelin İşe Başlama Tarihi: <h:inputText value="#{DepartmanBilgileriBean.entity.iseBaslamaTarihi}"  required="true" requiredMessage="İŞ BAŞLANGIÇ TARİHİ zorunludur"/>
+            <br></br>
+            <h:commandButton rendered="#{DepartmanBilgileriBean.entity.id==0}" action="#{DepartmanBilgileriBean.create()}" value="Create"/>
+            <h:commandButton rendered="#{DepartmanBilgileriBean.entity.id!=0}" action="#{DepartmanBilgileriBean.update()}" value="Update"/>
+            <h:commandButton rendered="#{DepartmanBilgileriBean.entity.id!=0}" action="#{DepartmanBilgileriBean.clear()}" value="Clear Form"/>
+            <br></br>
+        </h:form>
+          <h:messages style="color:red; font-size: 10pt;"/>
+        <hr/>
+
+        <h:form>
+            <h:dataTable value="#{DepartmanBilgileriBean.list}" var="entity">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{entity.id}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">PERSONELİN TC NUMARASI</f:facet>
+                        #{entity.tc}
+                </h:column>  
+
+                <h:column>
+                    <f:facet name="header">PERSONELİN ÇALIŞTIĞI DEPARTMAN </f:facet>
+                        #{entity.calistigiDepartman}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">PERSONELİN MESLEĞİ</f:facet>
+                        #{entity.meslek}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">PERSONELE AİT ZİMMETLİ EŞYALAR</f:facet>
+                        #{entity.zimmetliEsyalar}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">PERSONELİN İŞE BAŞLAMA TARİHİ</f:facet>
+                        #{entity.iseBaslamaTarihi}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">ADMINISTRATION</f:facet>
+                    <h:commandButton  styleClass="btn btn-danger" action="#{DepartmanBilgileriBean.delete(entity)}" value="Delete"/>
+                    <h:commandButton action="#{DepartmanBilgileriBean.setEntity(entity)}" value="Update"/>
+                </h:column>                
+
+            </h:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+

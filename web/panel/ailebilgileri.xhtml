@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Aile Bilgileri</title>
+              <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:commandButton action="/index" value="Home"/>
+        </h:form>
+        <hr />
+        <h:form>
+           
+            Personelin TC Numarası: <h:inputText value="#{AileBilgileriBean.entity.kbTc}" required="true" requiredMessage="TC zorunludur"/>
+            <br></br>
+            Personel Yakının Adı Soyadı: <h:inputText value="#{AileBilgileriBean.entity.adSoyad}" required="true" requiredMessage="AD SOYAD zorunludur" />
+            <br></br>
+            Yakının Aile Yakınlığı: <h:inputText value="#{AileBilgileriBean.entity.aileYakinligi}" required="true" requiredMessage="AİLE YAKINLIĞI zorunludur"/>
+            <br></br>
+            Yakının İletişim Numarası: <h:inputText value="#{AileBilgileriBean.entity.iletisimNo}" required="true" requiredMessage="İLETİŞİM NO zorunludur"/>
+            <br></br>
+            <h:commandButton rendered="#{AileBilgileriBean.entity.id==0}" action="#{AileBilgileriBean.create()}" value="Create"/>
+            <h:commandButton rendered="#{AileBilgileriBean.entity.id!=0}" action="#{AileBilgileriBean.update()}" value="Update"/>
+            <h:commandButton rendered="#{AileBilgileriBean.entity.id!=0}" action="#{AileBilgileriBean.clear()}" value="Clear Form"/>
+            <br></br>
+        </h:form>
+         <h:messages style="color:red; font-size: 10pt;"/>
+        <hr/>
+
+        <h:form>
+            <h:dataTable value="#{AileBilgileriBean.list}" var="entity">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{entity.id}
+                </h:column>                
+                <h:column>
+                    <f:facet name="header">Personelin TC Numarası</f:facet>
+                        #{entity.kbTc}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">YAKININ ADI SOYADI</f:facet>
+                        #{entity.adSoyad}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">YAKININ AILE YAKINLIGI</f:facet>
+                        #{entity.aileYakinligi}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">YAKININ ILETISIM NUMARASI</f:facet>
+                        #{entity.iletisimNo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">ADMINISTRATION</f:facet>
+                    <h:commandButton  styleClass="btn btn-danger" action="#{AileBilgileriBean.delete(entity)}" value="Delete"/>
+                    <h:commandButton action="#{AileBilgileriBean.setEntity(entity)}" value="Update"/>
+                </h:column>                
+
+            </h:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+

@@ -1,7 +1,7 @@
 package controller;
 
-import dao.KisiselBilgilerDAO;
-import entity.KisiselBilgiler;
+import dao.IletisimBilgileriDAO;
+import entity.IletisimBilgileri;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
@@ -14,65 +14,65 @@ import java.util.List;
  * @author Eren ALPARSLAN - 02205076019
  */
 
-@Named(value = "KisiselBilgilerBean")
+@Named(value = "IletisimBilgileriBean")
 @SessionScoped
-public class KisiselBilgilerBean implements Serializable {
+public class IletisimBilgileriBean implements Serializable {
 
-    private KisiselBilgiler entity;
-    private KisiselBilgilerDAO dao;
-    private List<KisiselBilgiler> list;
+    private IletisimBilgileri entity;
+    private IletisimBilgileriDAO dao;
+    private List<IletisimBilgileri> list;
 
-    public KisiselBilgilerBean() {
+    public IletisimBilgileriBean() {
 
     }
 
     public void create() {
         this.getDao().create(entity);
-        entity = new KisiselBilgiler();
+        entity = new IletisimBilgileri();
     }
 
     public void update() {
         this.getDao().update(entity);
-        entity = new KisiselBilgiler();
+        entity = new IletisimBilgileri();
     }
         
-    public void delete(KisiselBilgiler entity) {
+    public void delete(IletisimBilgileri entity) {
         this.getDao().delete(entity);
     }
 
     public void clear() {
-        entity = new KisiselBilgiler();
+        entity = new IletisimBilgileri();
     }
     
 
-    public KisiselBilgiler getEntity() {
+    public IletisimBilgileri getEntity() {
         if (entity == null) {
-            entity = new KisiselBilgiler();
+            entity = new IletisimBilgileri();
         }
         return entity;
     }
 
-    public void setEntity(KisiselBilgiler entity) {
+    public void setEntity(IletisimBilgileri entity) {
         this.entity = entity;
     }
 
-    public KisiselBilgilerDAO getDao() {
+    public IletisimBilgileriDAO getDao() {
         if (dao == null) {
-            dao = new KisiselBilgilerDAO();
+            dao = new IletisimBilgileriDAO();
         }
         return dao;
     }
 
-    public void setDao(KisiselBilgilerDAO dao) {
+    public void setDao(IletisimBilgileriDAO dao) {
         this.dao = dao;
     }
 
-    public List<KisiselBilgiler> getList() {
+    public List<IletisimBilgileri> getList() {
         this.list = this.getDao().getList();
         return list;
     }
 
-    public void setList(List<KisiselBilgiler> list) {
+    public void setList(List<IletisimBilgileri> list) {
         this.list = list;
     }
     

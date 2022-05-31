@@ -5,6 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Kisisel Bilgiler</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
     </h:head>
     <h:body>
         <h:form>
@@ -12,18 +13,22 @@
         </h:form>
         <hr />
         <h:form>
-            Tc: <h:inputText value="#{KisiselBilgilerBean.entity.tc}"/>
+            
+            Personelin TC Numarası: <h:inputText id="tc" value="#{KisiselBilgilerBean.entity.tc}" required="true" requiredMessage="TC zorunludur"/>
             <br></br>
-            İsim: <h:inputText value="#{KisiselBilgilerBean.entity.isim}"/>
+            Personelin Adı Soyadı: <h:inputText  id="adSoyad" value="#{KisiselBilgilerBean.entity.adSoyad}" required="true" requiredMessage="AD SOYAD zorunludur"/>
             <br></br>
-            Soyisim: <h:inputText value="#{KisiselBilgilerBean.entity.soyIsim}"/>
+            Personelin Doğum Tarihi: <h:inputText id="dogumtarihi" value="#{KisiselBilgilerBean.entity.dogumTarihi}" required="true" requiredMessage="DOGUM TARİHİ zorunludur"/>
             <br></br>
-            <h:commandButton rendered="#{KisiselBilgilerBean.entity.id==0}" action="#{KisiselBilgilerBean.create()}" value="Create"/>
-            <h:commandButton rendered="#{KisiselBilgilerBean.entity.id!=0}" action="#{KisiselBilgilerBean.update()}" value="Update"/>
-            <h:commandButton rendered="#{KisiselBilgilerBean.entity.id!=0}" action="#{KisiselBilgilerBean.clear()}" value="Clear Form"/>
+            Personelin Medeni Hali: <h:inputText id="medeniHal" value="#{KisiselBilgilerBean.entity.medeniHali}" required="true" requiredMessage="MEDENİ HAL  zorunludur"/>
+            <br></br>
+            <h:commandButton styleClass="btn btn-success" rendered="#{KisiselBilgilerBean.entity.id==0}" action="#{KisiselBilgilerBean.create()}" value="Create"/>
+            <h:commandButton styleClass="btn btn-success" rendered="#{KisiselBilgilerBean.entity.id!=0}" action="#{KisiselBilgilerBean.update()}" value="Update"/>
+            <h:commandButton styleClass="btn btn-success" rendered="#{KisiselBilgilerBean.entity.id!=0}" action="#{KisiselBilgilerBean.clear()}" value="Clear Form"/>
             <br></br>
         </h:form>
-        <hr/>
+        <h:messages style="color:red; font-size: 10pt;"/>
+        <hr/>  
 
         <h:form>
             <h:dataTable value="#{KisiselBilgilerBean.list}" var="entity">
@@ -31,25 +36,29 @@
                     <f:facet name="header">ID</f:facet>
                         #{entity.id}
                 </h:column>
-
+                
                 <h:column>
-                    <f:facet name="header">TC</f:facet>
+                   <f:facet name="header">PERSONELİN TC NUMARASI</f:facet>
                         #{entity.tc}
                 </h:column>  
-
+                
                 <h:column>
-                    <f:facet name="header">İSİM</f:facet>
-                        #{entity.isim}
+                    <f:facet name="header">PERSONELİN ADI SOYADI</f:facet>
+                        #{entity.adSoyad}
                 </h:column>
 
                 <h:column>
-                    <f:facet name="header">SOYİSİM</f:facet>
-                        #{entity.soyIsim}
+                    <f:facet name="header">PERSONELİN DOĞUM TARİHİ</f:facet>
+                        #{entity.dogumTarihi}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">PERSONELİN MEDENİ HALİ</f:facet>
+                        #{entity.medeniHali}
                 </h:column>
                 <h:column>
                     <f:facet name="header">ADMINISTRATION</f:facet>
-                    <h:commandButton action="#{KisiselBilgilerBean.delete(entity)}" value="Delete"/>
-                    <h:commandButton action="#{KisiselBilgilerBean.setEntity(entity)}" value="Update"/>
+                    <h:commandButton styleClass="btn btn-danger" action="#{KisiselBilgilerBean.delete(entity)}" value="Delete"/>
+                    <h:commandButton styleClass="btn btn-success" action="#{KisiselBilgilerBean.setEntity(entity)}" value="Update"/>
                 </h:column>                
 
             </h:dataTable>

@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>İletişim Bilgileri</title>
+              <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:commandButton action="/index" value="Home"/>
+        </h:form>
+        <hr />
+        <h:form>
+            Personelin TC Numarası: <h:inputText value="#{IletisimBilgileriBean.entity.tc}" required="true" requiredMessage="TC zorunludur"/>
+            <br></br>
+            Personelin Telefon Numarası: <h:inputText value="#{IletisimBilgileriBean.entity.telefonNo}" required="true" requiredMessage="TELEFON NO zorunludur"/>
+            <br></br>
+            Personelin Mail Adresi: <h:inputText value="#{IletisimBilgileriBean.entity.mailAdresi}"/>
+            <br></br>
+            Posta Kodu: <h:inputText value="#{IletisimBilgileriBean.entity.postaKodu}"/>
+            <br></br>
+            <h:commandButton rendered="#{IletisimBilgileriBean.entity.id==0}" action="#{IletisimBilgileriBean.create()}" value="Create"/>
+            <h:commandButton rendered="#{IletisimBilgileriBean.entity.id!=0}" action="#{IletisimBilgileriBean.update()}" value="Update"/>
+            <h:commandButton rendered="#{IletisimBilgileriBean.entity.id!=0}" action="#{IletisimBilgileriBean.clear()}" value="Clear Form"/>
+            <br></br>
+        </h:form>
+                  <h:messages style="color:red; font-size: 10pt;"/>
+        <hr/>
+
+        <h:form>
+            <h:dataTable value="#{IletisimBilgileriBean.list}" var="entity">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{entity.id}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">PERSONELİN TC NUMARASI</f:facet>
+                        #{entity.tc}
+                </h:column>  
+
+                <h:column>
+                    <f:facet name="header">PERSONELİN TELEFON NUMARASI</f:facet>
+                        #{entity.telefonNo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">PERSONELİN MAIL ADRESİ</f:facet>
+                        #{entity.mailAdresi}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">POSTA KODU</f:facet>
+                        #{entity.postaKodu}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">ADMINISTRATION</f:facet>
+                    <h:commandButton  styleClass="btn btn-danger" action="#{IletisimBilgileriBean.delete(entity)}" value="Delete"/>
+                    <h:commandButton action="#{IletisimBilgileriBean.setEntity(entity)}" value="Update"/>
+                </h:column>                
+
+            </h:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+

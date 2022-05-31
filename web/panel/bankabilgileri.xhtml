@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Banka Bilgileri</title>
+              <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:commandButton action="/index" value="Home"/>
+        </h:form>
+        <hr />
+        <h:form>
+            Personelin TC Numarası: <h:inputText value="#{BankaBilgileriBean.entity.tc}" required="true"  requiredMessage="TC zorunludur"/>
+            <br></br>
+            Ad Soyad: <h:inputText value="#{BankaBilgileriBean.entity.adSoyad}" required="true" requiredMessage="AD SOYAD zorunludur"/>
+            <br></br>
+            Hesap No: <h:inputText value="#{BankaBilgileriBean.entity.hesapNo}" required="true" requiredMessage="HESAP NO zorunludur"/>
+            <br></br>
+            IBAN: <h:inputText value="#{BankaBilgileriBean.entity.iban}" required="true" requiredMessage="IBAN zorunludur"/>
+            <br></br>
+            Banka Adı: <h:inputText value="#{BankaBilgileriBean.entity.bankaAdi}" required="true" requiredMessage="BANKA ADI zorunludur"/>
+            <br></br>
+            Şube Adı: <h:inputText value="#{BankaBilgileriBean.entity.subeAdi}" required="true" requiredMessage="ŞUBE ADI zorunludur"/>
+            <br></br>
+            Şube Kodu: <h:inputText value="#{BankaBilgileriBean.entity.subeKodu}" required="true" requiredMessage="ŞUBE KODU zorunludur"/>
+            <br></br>
+            <h:commandButton rendered="#{BankaBilgileriBean.entity.id==0}" action="#{BankaBilgileriBean.create()}" value="Create"/>
+            <h:commandButton rendered="#{BankaBilgileriBean.entity.id!=0}" action="#{BankaBilgileriBean.update()}" value="Update"/>
+            <h:commandButton rendered="#{BankaBilgileriBean.entity.id!=0}" action="#{BankaBilgileriBean.clear()}" value="Clear Form"/>
+            <br></br>
+        </h:form>
+         <h:messages style="color:red; font-size: 10pt;"/>
+        <hr/>
+
+        <h:form>
+            <h:dataTable value="#{BankaBilgileriBean.list}" var="entity">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{entity.id}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">PERSONELİN TC NUMARASI</f:facet>
+                        #{entity.tc}
+                </h:column>  
+
+                <h:column>
+                    <f:facet name="header">AD SOYAD</f:facet>
+                        #{entity.adSoyad}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">HESAP NO</f:facet>
+                        #{entity.hesapNo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">IBAN</f:facet>
+                        #{entity.iban}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">BANKA ADI</f:facet>
+                        #{entity.bankaAdi}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">SUBE ADI</f:facet>
+                        #{entity.subeAdi}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">SUBE KODU</f:facet>
+                        #{entity.subeKodu}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">ADMINISTRATION</f:facet>
+                    <h:commandButton  styleClass="btn btn-danger" action="#{BankaBilgileriBean.delete(entity)}" value="Delete"/>
+                    <h:commandButton action="#{BankaBilgileriBean.setEntity(entity)}" value="Update"/>
+                </h:column>                
+
+            </h:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+
