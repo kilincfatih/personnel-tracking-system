@@ -2,59 +2,85 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
         <title>Kisisel Bilgiler</title>
     </h:head>
     <h:body>
-        <h:form>
-            <h:commandButton action="/index" value="Home"/>
-        </h:form>
-        <hr />
-        <h:form>
-            Tc: <h:inputText value="#{KisiselBilgilerBean.entity.tc}"/>
-            <br></br>
-            İsim: <h:inputText value="#{KisiselBilgilerBean.entity.isim}"/>
-            <br></br>
-            Soyisim: <h:inputText value="#{KisiselBilgilerBean.entity.soyIsim}"/>
-            <br></br>
-            <h:commandButton rendered="#{KisiselBilgilerBean.entity.id==0}" action="#{KisiselBilgilerBean.create()}" value="Create"/>
-            <h:commandButton rendered="#{KisiselBilgilerBean.entity.id!=0}" action="#{KisiselBilgilerBean.update()}" value="Update"/>
-            <h:commandButton rendered="#{KisiselBilgilerBean.entity.id!=0}" action="#{KisiselBilgilerBean.clear()}" value="Clear Form"/>
-            <br></br>
-        </h:form>
-        <hr/>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h:form>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        PERSONELIN TC NUMARASI
+                                    </th>
+                                    <th>
+                                        PERSONELIN ADI SOYADI
+                                    </th>
+                                    <th>
+                                        PERSONELIN DOGUM TARIHI
+                                    </th>
+                                    <th>
+                                        PERSONELIN MEDENI HALI
+                                    </th>
+                                    <th>
+                                        ADMINISTRATION
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ui:repeat value="#{KisiselBilgilerBean.list}" var="k">
+                                    <tr>
+                                        <td>#{k.id}</td>
+                                        <td>
+                                            <h:commandLink action="#{KisiselBilgilerBean.setEntity(k)}" value="#{k.tc}"/>
+                                        </td>
+                                        <td>#{k.adSoyad}</td>
+                                        <td>#{k.dogumTarihi}</td>
+                                        <td>#{k.medeniHali}</td>
+                                    </tr>
+                                </ui:repeat>
+                            </tbody>
 
-        <h:form>
-            <h:dataTable value="#{KisiselBilgilerBean.list}" var="entity">
-                <h:column>
-                    <f:facet name="header">ID</f:facet>
-                        #{entity.id}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">TC</f:facet>
-                        #{entity.tc}
-                </h:column>  
-
-                <h:column>
-                    <f:facet name="header">İSİM</f:facet>
-                        #{entity.isim}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">SOYİSİM</f:facet>
-                        #{entity.soyIsim}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">ADMINISTRATION</f:facet>
-                    <h:commandButton action="#{KisiselBilgilerBean.delete(entity)}" value="Delete"/>
-                    <h:commandButton action="#{KisiselBilgilerBean.setEntity(entity)}" value="Update"/>
-                </h:column>                
-
-            </h:dataTable>
-        </h:form>
-
+                        </table>
+                    </h:form>
+                </div>
+                <div class="col">
+                    <h:form>
+                        <div class="mb-3">
+                            <label>Personelin Tc Numarası</label>
+                            <h:inputText value="#{KisiselBilgilerBean.entity.tc}" styleClass="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <label>Personelin Adı Soyadı</label>
+                            <h:inputText value="#{KisiselBilgilerBean.entity.adSoyad}" styleClass="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <label>Personelin Doğum Tarihi</label>
+                            <h:inputText value="#{KisiselBilgilerBean.entity.dogumTarihi}" styleClass="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <label>Personelin Medeni Hali</label>
+                            <h:inputText value="#{KisiselBilgilerBean.entity.medeniHali}" styleClass="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <h:commandButton styleClass="btn btn-success" rendered="#{KisiselBilgilerBean.entity.tc==null}" action="#{KisiselBilgilerBean.create}" value="Create"/>
+                            <h:commandButton styleClass="btn btn-secondary" rendered="#{KisiselBilgilerBean.entity.tc != null}" action="#{KisiselBilgilerBean.clear}" value="Clear Form"/>
+                            <h:commandButton styleClass="btn btn-primary" rendered="#{KisiselBilgilerBean.entity.tc != null}" action="#{KisiselBilgilerBean.update}" value="Update"/>
+                            <h:commandButton styleClass="btn btn-danger" rendered="#{KisiselBilgilerBean.entity.tc != null}" action="#{KisiselBilgilerBean.delete}" value="Delete"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
     </h:body>
 </html>
 

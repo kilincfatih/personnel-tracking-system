@@ -1,7 +1,7 @@
 package controller;
 
-import dao.KisiselBilgilerDAO;
-import entity.KisiselBilgiler;
+import dao.GroupDAO;
+import entity.SystemGroup;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
@@ -14,66 +14,66 @@ import java.util.List;
  * @author Eren ALPARSLAN - 02205076019
  */
 
-@Named(value = "KisiselBilgilerBean")
+@Named(value = "GroupBean")
 @SessionScoped
-public class KisiselBilgilerBean implements Serializable {
+public class GroupBean implements Serializable {
 
-    private KisiselBilgiler entity;
-    private KisiselBilgilerDAO dao;
-    private List<KisiselBilgiler> list;
+    private SystemGroup entity;
+    private GroupDAO dao;
+    private List<SystemGroup> list;
 
-    public KisiselBilgilerBean() {
+    public GroupBean() {
 
     }
 
     public void create() {
         this.getDao().create(entity);
-        entity = new KisiselBilgiler();
+        entity = new SystemGroup();
     }
 
     public void update() {
         this.getDao().update(entity);
-        entity = new KisiselBilgiler();
+        entity = new SystemGroup();
     }
         
     public void delete() {
         this.getDao().delete(entity);
-        this.entity = new KisiselBilgiler();
+        this.entity = new SystemGroup();
     }
 
     public void clear() {
-        entity = new KisiselBilgiler();
+        entity = new SystemGroup();
     }
     
 
-    public KisiselBilgiler getEntity() {
+    public SystemGroup getEntity() {
         if (entity == null) {
-            entity = new KisiselBilgiler();
+            entity = new SystemGroup();
         }
         return entity;
     }
 
-    public void setEntity(KisiselBilgiler entity) {
+    public void setEntity(SystemGroup entity) {
         this.entity = entity;
     }
 
-    public KisiselBilgilerDAO getDao() {
+    public GroupDAO getDao() {
         if (dao == null) {
-            dao = new KisiselBilgilerDAO();
+            dao = new GroupDAO();
         }
         return dao;
     }
 
-    public void setDao(KisiselBilgilerDAO dao) {
+    public void setDao(GroupDAO dao) {
         this.dao = dao;
     }
 
-    public List<KisiselBilgiler> getList() {
+    public List<SystemGroup> getList() {
         this.list = this.getDao().getList();
         return list;
     }
 
-    public void setList(List<KisiselBilgiler> list) {
+    public void setList(List<SystemGroup> list) {
         this.list = list;
     }
     

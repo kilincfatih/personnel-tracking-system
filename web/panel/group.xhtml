@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <title>System Group</title>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h:form>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        GROUP NAME
+                                    </th>
+                                    <th>
+                                        CREATED
+                                    </th>
+                                    <th>
+                                        UPDATED
+                                    </th>
+                                    <th>
+                                        ADMINISTRATION
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ui:repeat value="#{GroupBean.list}" var="k">
+                                    <tr>
+                                        <td>#{k.id}</td>
+                                        <td>
+                                            <h:commandLink action="#{GroupBean.setEntity(k)}" value="#{k.gname}"/>
+                                        </td>
+                                        <td>#{k.created}</td>
+                                        <td>#{k.updated}</td>
+                                    </tr>
+                                </ui:repeat>
+                            </tbody>
+
+                        </table>
+                    </h:form>
+                </div>
+                <div class="col">
+                    <h:form>
+                        <div class="nb-3">
+                            <label>System Group</label>
+                            <h:inputText value="#{GroupBean.entity.gname}" styleClass="form-control"/>
+                        </div>
+
+                        <div class="nb-3">
+                            <h:commandButton styleClass="btn btn-success" rendered="#{GroupBean.entity.id==null}" action="#{GroupBean.create}" value="Create"/>
+                            <h:commandButton styleClass="btn btn-secondary" rendered="#{GroupBean.entity.id != null}" action="#{GroupBean.clear}" value="Clear Form"/>
+                            <h:commandButton styleClass="btn btn-primary" rendered="#{GroupBean.entity.id != null}" action="#{GroupBean.update}" value="Update"/>
+                            <h:commandButton styleClass="btn btn-danger" rendered="#{GroupBean.entity.id != null}" action="#{GroupBean.delete}" value="Delete"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+

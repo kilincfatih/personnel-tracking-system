@@ -1,7 +1,7 @@
 package controller;
 
-import dao.KisiselBilgilerDAO;
-import entity.KisiselBilgiler;
+import dao.UserDAO;
+import entity.SystemUser;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
@@ -13,69 +13,66 @@ import java.util.List;
  * @author Fatih KILINÇ - 02205076006
  * @author Eren ALPARSLAN - 02205076019
  */
-
-@Named(value = "KisiselBilgilerBean")
+@Named(value = "UserBean")
 @SessionScoped
-public class KisiselBilgilerBean implements Serializable {
+public class UserBean implements Serializable {
 
-    private KisiselBilgiler entity;
-    private KisiselBilgilerDAO dao;
-    private List<KisiselBilgiler> list;
+    private SystemUser entity;
+    private UserDAO dao;
+    private List<SystemUser> list;
 
-    public KisiselBilgilerBean() {
+    public UserBean() {
 
     }
 
     public void create() {
         this.getDao().create(entity);
-        entity = new KisiselBilgiler();
+        entity = new SystemUser();
     }
 
     public void update() {
         this.getDao().update(entity);
-        entity = new KisiselBilgiler();
+        entity = new SystemUser();
     }
-        
+
     public void delete() {
         this.getDao().delete(entity);
-        this.entity = new KisiselBilgiler();
+        this.entity = new SystemUser();
     }
 
     public void clear() {
-        entity = new KisiselBilgiler();
+        entity = new SystemUser();
     }
-    
 
-    public KisiselBilgiler getEntity() {
+    public SystemUser getEntity() {
         if (entity == null) {
-            entity = new KisiselBilgiler();
+            entity = new SystemUser();
         }
         return entity;
     }
 
-    public void setEntity(KisiselBilgiler entity) {
+    public void setEntity(SystemUser entity) {
         this.entity = entity;
     }
 
-    public KisiselBilgilerDAO getDao() {
+    public UserDAO getDao() {
         if (dao == null) {
-            dao = new KisiselBilgilerDAO();
+            dao = new UserDAO();
         }
         return dao;
     }
 
-    public void setDao(KisiselBilgilerDAO dao) {
+    public void setDao(UserDAO dao) {
         this.dao = dao;
     }
 
-    public List<KisiselBilgiler> getList() {
+    public List<SystemUser> getList() {
         this.list = this.getDao().getList();
         return list;
     }
 
-    public void setList(List<KisiselBilgiler> list) {
+    public void setList(List<SystemUser> list) {
         this.list = list;
     }
-    
+
 }
-  

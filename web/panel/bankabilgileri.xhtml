@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Banka Bilgileri</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:commandButton action="/index" value="Home"/>
+        </h:form>
+        <hr />
+        <h:form>
+            Personelin TC Numarası: <h:inputText value="#{BankaBilgileriBean.entity.tc}"/>
+            <br></br>
+            Ad Soyad: <h:inputText value="#{BankaBilgileriBean.entity.adSoyad}"/>
+            <br></br>
+            Hesap No: <h:inputText value="#{BankaBilgileriBean.entity.hesapNo}"/>
+            <br></br>
+            IBAN: <h:inputText value="#{BankaBilgileriBean.entity.iban}"/>
+            <br></br>
+            Banka Adı: <h:inputText value="#{BankaBilgileriBean.entity.bankaAdi}"/>
+            <br></br>
+            Şube Adı: <h:inputText value="#{BankaBilgileriBean.entity.subeAdi}"/>
+            <br></br>
+            Şube Kodu: <h:inputText value="#{BankaBilgileriBean.entity.subeKodu}"/>
+            <br></br>
+            <h:commandButton rendered="#{BankaBilgileriBean.entity.id==0}" action="#{BankaBilgileriBean.create()}" value="Create"/>
+            <h:commandButton rendered="#{BankaBilgileriBean.entity.id!=0}" action="#{BankaBilgileriBean.update()}" value="Update"/>
+            <h:commandButton rendered="#{BankaBilgileriBean.entity.id!=0}" action="#{BankaBilgileriBean.clear()}" value="Clear Form"/>
+            <br></br>
+        </h:form>
+        <hr/>
+
+        <h:form>
+            <h:dataTable value="#{BankaBilgileriBean.list}" var="entity">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{entity.id}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">PERSONELİN TC NUMARASI</f:facet>
+                        #{entity.tc}
+                </h:column>  
+
+                <h:column>
+                    <f:facet name="header">AD SOYAD</f:facet>
+                        #{entity.adSoyad}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">HESAP NO</f:facet>
+                        #{entity.hesapNo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">IBAN</f:facet>
+                        #{entity.iban}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">BANKA ADI</f:facet>
+                        #{entity.bankaAdi}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">SUBE ADI</f:facet>
+                        #{entity.subeAdi}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">SUBE KODU</f:facet>
+                        #{entity.subeKodu}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">ADMINISTRATION</f:facet>
+                    <h:commandButton action="#{BankaBilgileriBean.delete(entity)}" value="Delete"/>
+                    <h:commandButton action="#{BankaBilgileriBean.setEntity(entity)}" value="Update"/>
+                </h:column>                
+
+            </h:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+

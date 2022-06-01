@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Eğitim Bilgileri</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:commandButton action="/index" value="Home"/>
+        </h:form>
+        <hr />
+        <h:form>
+            Personelin TC Numarası: <h:inputText value="#{EgitimBilgileriBean.entity.tc}"/>
+            <br></br>
+            Persobelin Mezun Olduğu Ortaokul: <h:inputText value="#{EgitimBilgileriBean.entity.ortaokul}"/>
+            <br></br>
+            Personelin Mezun Olduğu Lise: <h:inputText value="#{EgitimBilgileriBean.entity.lise}"/>
+            <br></br>
+            Personelin Mezun Olduğu Üniversite: <h:inputText value="#{EgitimBilgileriBean.entity.universite}"/>
+            <br></br>
+            Personelin Bildiği Yabancı Dil: <h:inputText value="#{EgitimBilgileriBean.entity.yabanciDil}"/>
+            <br></br>
+            <h:commandButton rendered="#{EgitimBilgileriBean.entity.id==0}" action="#{EgitimBilgileriBean.create()}" value="Create"/>
+            <h:commandButton rendered="#{EgitimBilgileriBean.entity.id!=0}" action="#{EgitimBilgileriBean.update()}" value="Update"/>
+            <h:commandButton rendered="#{EgitimBilgileriBean.entity.id!=0}" action="#{EgitimBilgileriBean.clear()}" value="Clear Form"/>
+            <br></br>
+        </h:form>
+        <hr/>
+
+        <h:form>
+            <h:dataTable value="#{EgitimBilgileriBean.list}" var="entity">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{entity.id}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">PERSONELİN TC NUMARASI</f:facet>
+                        #{entity.tc}
+                </h:column>  
+
+                <h:column>
+                    <f:facet name="header">PERSONELİN MEZUN OLDUGU ORTAOKUL</f:facet>
+                        #{entity.ortaokul}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">PERSONELİN MEZUN OLDUGU LISE</f:facet>
+                        #{entity.lise}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">PERSONELİN MEZUN OLDUGU UNIVERSITE</f:facet>
+                        #{entity.universite}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">PERSONELİN BILDIGI YABANCI DIL</f:facet>
+                        #{entity.yabanciDil}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">ADMINISTRATION</f:facet>
+                    <h:commandButton action="#{EgitimBilgileriBean.delete(entity)}" value="Delete"/>
+                    <h:commandButton action="#{EgitimBilgileriBean.setEntity(entity)}" value="Update"/>
+                </h:column>                
+
+            </h:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+

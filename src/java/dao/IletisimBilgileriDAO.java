@@ -1,25 +1,24 @@
 package dao;
 
-import entity.KisiselBilgiler;
+import entity.IletisimBilgileri;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import util.DBConnection;
-
 /**
  *
  * @author Taha Kubilay ÖZDOĞAN - 02205076007
  * @author Fatih KILINÇ - 02205076006
  * @author Eren ALPARSLAN - 02205076019
  */
-public class KisiselBilgilerDAO extends DBConnection {
-   
-    public void create(KisiselBilgiler k) {
+public class IletisimBilgileriDAO extends DBConnection {
+
+    public void create(IletisimBilgileri k) {
 
         try {
             Statement st = this.getConnect().createStatement();
-            String query = "insert into kisisel_bilgiler (tc, ad_soyad, dogum_tarihi, medeni_hali) values ('" + k.getTc() + "', '" + k.getAdSoyad() + "', '" + k.getDogumTarihi() + "', '" + k.getMedeniHali() + "')";
+            String query = "insert into iletisim_bilgileri (iletisim_bilgiler_tc, telefon_no, mail_adresi, posta_kodu) values ('" + k.getTc() + "', '" + k.getTelefonNo() + "', '" + k.getMailAdresi() + "', '" + k.getPostaKodu() + "')";
             st.executeUpdate(query);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -27,11 +26,13 @@ public class KisiselBilgilerDAO extends DBConnection {
 
     }
 
-    public void update(KisiselBilgiler k) {
+
+
+    public void update(IletisimBilgileri k) {
 
         try {
             Statement st = this.getConnect().createStatement();
-            String query = "update kisisel_bilgiler set tc ='" + k.getTc() + "', ad_soyad='" + k.getAdSoyad() + "', dogum_tarihi='" + k.getDogumTarihi() + "', medeni_hali='" + k.getMedeniHali() + "'  where id=" + k.getId();
+            String query = "update iletisim_bilgileri set iletisim_bilgiler_tc ='" + k.getTc() + "', telefon_no='" + k.getTelefonNo() + "', mail_adresi='" + k.getMailAdresi() + "', posta_kodu='" + k.getPostaKodu() + "' where id=" + k.getId();
 
             st.executeUpdate(query);
         } catch (Exception e) {
@@ -40,11 +41,11 @@ public class KisiselBilgilerDAO extends DBConnection {
 
     }
 
-    public void delete(KisiselBilgiler k) {
+    public void delete(IletisimBilgileri k) {
 
         try {
             Statement st = this.getConnect().createStatement();
-            String query = "delete from kisisel_bilgiler where id=" + k.getId();
+            String query = "delete from iletisim_bilgileri where id=" + k.getId();
             st.executeUpdate(query);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -52,16 +53,16 @@ public class KisiselBilgilerDAO extends DBConnection {
 
     }
 
-    public List<KisiselBilgiler> getList() {
-        List<KisiselBilgiler> list = new ArrayList<>();
+    public List<IletisimBilgileri> getList() {
+        List<IletisimBilgileri> list = new ArrayList<>();
         try {
             Statement st = this.getConnect().createStatement();
-            String query = "select * from kisisel_bilgiler order by id asc";
+            String query = "select * from iletisim_bilgileri order by id asc";
 
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                list.add(new KisiselBilgiler(rs.getInt("id"), rs.getString("tc"), rs.getString("ad_soyad"), rs.getString("dogum_tarihi"), rs.getString("medeni_hali")));
+                list.add(new IletisimBilgileri(rs.getInt("id"), rs.getString("iletisim_bilgiler_tc"), rs.getString("telefon_no"), rs.getString("mail_adresi"), rs.getString("posta_kodu")));
             }
 
         } catch (Exception e) {

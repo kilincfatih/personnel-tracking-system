@@ -1,6 +1,7 @@
 package dao;
 
-import entity.KisiselBilgiler;
+import entity.SystemGroup;
+import entity.SystemUser;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -13,13 +14,15 @@ import util.DBConnection;
  * @author Fatih KILINÇ - 02205076006
  * @author Eren ALPARSLAN - 02205076019
  */
-public class KisiselBilgilerDAO extends DBConnection {
-   
-    public void create(KisiselBilgiler k) {
+public class UserDAO extends DBConnection {
+
+    private GroupDAO gdao;
+
+    public void create(SystemUser k) {
 
         try {
             Statement st = this.getConnect().createStatement();
-            String query = "insert into kisisel_bilgiler (tc, ad_soyad, dogum_tarihi, medeni_hali) values ('" + k.getTc() + "', '" + k.getAdSoyad() + "', '" + k.getDogumTarihi() + "', '" + k.getMedeniHali() + "')";
+            String query = "insert into systemuser (email, pass, ugroup) values ('" + k.getEmail() + "', '" + k.getPass() + "', '" + k.getGroup().getId() + "')";
             st.executeUpdate(query);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -27,12 +30,11 @@ public class KisiselBilgilerDAO extends DBConnection {
 
     }
 
-    public void update(KisiselBilgiler k) {
+    public void update(SystemUser k) {
 
         try {
             Statement st = this.getConnect().createStatement();
-            String query = "update kisisel_bilgiler set tc ='" + k.getTc() + "', ad_soyad='" + k.getAdSoyad() + "', dogum_tarihi='" + k.getDogumTarihi() + "', medeni_hali='" + k.getMedeniHali() + "'  where id=" + k.getId();
-
+            String query = "update systemuser set pass='" + k.getPass() + "', ugroup='" + k.getGroup().getId() + "' where id=" + k.getId();
             st.executeUpdate(query);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -40,11 +42,11 @@ public class KisiselBilgilerDAO extends DBConnection {
 
     }
 
-    public void delete(KisiselBilgiler k) {
+    public void delete(SystemUser k) {
 
         try {
             Statement st = this.getConnect().createStatement();
-            String query = "delete from kisisel_bilgiler where id=" + k.getId();
+            String query = "delete from systemuser where id=" + k.getId();
             st.executeUpdate(query);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -52,22 +54,34 @@ public class KisiselBilgilerDAO extends DBConnection {
 
     }
 
-    public List<KisiselBilgiler> getList() {
-        List<KisiselBilgiler> list = new ArrayList<>();
+    public List<SystemUser> getList() {
+        List<SystemUser> list = new ArrayList<>();
         try {
             Statement st = this.getConnect().createStatement();
-            String query = "select * from kisisel_bilgiler order by id asc";
+            String query = "select * from systemuser order by id asc";
 
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                list.add(new KisiselBilgiler(rs.getInt("id"), rs.getString("tc"), rs.getString("ad_soyad"), rs.getString("dogum_tarihi"), rs.getString("medeni_hali")));
+                SystemGroup g = this.getGdao().getById(rs.getLong("ugroup"));
+                list.add(new SystemUser(rs.getLong("id"), rs.getString("email"), rs.getString("pass"), g));
             }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return list;
+    }
+
+    public GroupDAO getGdao() {
+        if (this.gdao == null) {
+            this.gdao = new GroupDAO();
+        }
+        return gdao;
+    }
+
+    public void setGdao(GroupDAO gdao) {
+        this.gdao = gdao;
     }
 
 }
