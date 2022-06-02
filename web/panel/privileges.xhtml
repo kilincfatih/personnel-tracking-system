@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <title>Privileges</title>
+    </h:head>
+    <h:body>
+        <h:form styleClass="my-3"  style="text-align: center; ">
+            <h:commandButton styleClass="btn" action="/panel/kisiselbilgiler?faces-redirect=true" value="Kişisel Bilgiler" />
+            <h:commandButton styleClass="btn" action="/panel/ailebilgileri?faces-redirect=true" value="Aile Bilgileri" />
+            <h:commandButton styleClass="btn" action="/panel/departmanbilgileri?faces-redirect=true" value="Departman Bilgileri" />
+            <h:commandButton styleClass="btn" action="/panel/iletisimbilgileri?faces-redirect=true" value="İletişim Bilgileri" />
+            <h:commandButton styleClass="btn" action="/panel/egitimbilgileri?faces-redirect=true" value="Eğitim Bilgileri" />
+            <h:commandButton styleClass="btn" action="/panel/bankabilgileri?faces-redirect=true" value="Banka Bilgileri" />
+            <h:commandButton styleClass="btn" action="/panel/group?faces-redirect=true" value="System Group" />
+            <h:commandButton styleClass="btn" action="/panel/user?faces-redirect=true" value="System User" />
+            <h:commandButton styleClass="btn" action="/panel/privileges?faces-redirect=true" value="Privileges" />
+        </h:form>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h:form>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>GROUP</th>
+                                    <th>MODULE</th>
+                                    <th>CREATE</th>
+                                    <th>READ</th>
+                                    <th>UPDATE</th>
+                                    <th>DELETE</th>
+                                    <th>LIST</th>
+                                    <th>SHOW</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ui:repeat value="#{PrivilegesBean.list}" var="k">
+                                    <tr>
+                                        <td>#{k.id}</td>
+                                        <td>#{k.pgroup.gname}</td>
+                                        <td>
+                                            <h:commandLink action="#{PrivilegesBean.setEntity(k)}" value="#{k.mname}"/>
+                                        </td>
+                                        <td>#{k.icreate}</td>
+                                        <td>#{k.iread}</td>
+                                        <td>#{k.iupdate}</td>
+                                        <td>#{k.idelete}</td>
+                                        <td>#{k.ilist}</td>
+                                        <td>#{k.irshow}</td>
+                                    </tr>
+                                </ui:repeat>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <h3>Page: #{PrivilegesBean.page}/#{PrivilegesBean.pageCount}</h3>
+                                    <h:commandButton styleClass="btn btn-sn btn-success" action="#{PrivilegesBean.previous()}" value="previous" />
+                                    <h:commandButton styleClass="btn btn-sn btn-success" action="#{PrivilegesBean.next()}" value="next" />
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </h:form>
+                </div>
+                <div class="col">
+                    <h:form>
+                        <div class="mb-3">
+                            <label>Group</label>
+                            <h:selectOneMenu styleClass="form-select" value="#{PrivilegesBean.entity.pgroup}" converter="groupConverter">
+                                <f:selectItems value="#{GroupBean.list}" var="g" itemLabel="#{g.gname}" itemValue="#{g}"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="mb-3">
+                            <label>MName</label>
+                            <h:inputText value="#{PrivilegesBean.entity.mname}" styleClass="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <label>Create</label>
+                            <h:selectBooleanCheckbox value="#{PrivilegesBean.entity.icreate}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label>Read</label>
+                            <h:selectBooleanCheckbox value="#{PrivilegesBean.entity.iread}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label>Update</label>
+                            <h:selectBooleanCheckbox value="#{PrivilegesBean.entity.iupdate}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label>Delete</label>
+                            <h:selectBooleanCheckbox value="#{PrivilegesBean.entity.idelete}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label>List</label>
+                            <h:selectBooleanCheckbox value="#{PrivilegesBean.entity.ilist}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label>Show</label>
+                            <h:selectBooleanCheckbox value="#{PrivilegesBean.entity.irshow}"/>
+                        </div>                        
+
+                        <div class="mb-3">
+                            <h:commandButton styleClass="btn btn-success" rendered="#{PrivilegesBean.entity.id==null}" action="#{PrivilegesBean.create}" value="Create"/>
+                            <h:commandButton styleClass="btn btn-secondary" rendered="#{PrivilegesBean.entity.id != null}" action="#{PrivilegesBean.clear}" value="Clear Form"/>
+                            <h:commandButton styleClass="btn btn-primary" rendered="#{PrivilegesBean.entity.id != null}" action="#{PrivilegesBean.update}" value="Update"/>
+                            <h:commandButton styleClass="btn btn-danger" rendered="#{PrivilegesBean.entity.id != null}" action="#{PrivilegesBean.delete}" value="Delete"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>

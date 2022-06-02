@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <h:outputStylesheet library="css" name="bootstrap.min.css"/>
-        <title>Kisisel Bilgiler</title>
+        <title>System User</title>
     </h:head>
     <h:body>
         <h:form styleClass="my-3" style="text-align: center; ">
@@ -28,30 +28,30 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>PERSONELIN TC NUMARASI</th>
-                                    <th>PERSONELIN ADI SOYADI</th>
-                                    <th>PERSONELIN DOGUM TARIHI</th>
-                                    <th>PERSONELIN MEDENI HALI</th>
+                                    <th>EMAIL</th>
+                                    <th>GROUP</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <ui:repeat value="#{KisiselBilgilerBean.list}" var="k">
+                                <ui:repeat value="#{UserBean.list}" var="k">
                                     <tr>
-                                        <td>#{k.id}</td>
                                         <td>
-                                            <h:commandLink action="#{KisiselBilgilerBean.setEntity(k)}" value="#{k.tc}"/>
+                                            #{k.id}
                                         </td>
-                                        <td>#{k.adSoyad}</td>
-                                        <td>#{k.dogumTarihi}</td>
-                                        <td>#{k.medeniHali}</td>
+                                        <td>
+                                            <h:commandLink action="#{UserBean.setEntity(k)}" value="#{k.email}"/>
+                                        </td>
+                                        <td>
+                                            #{k.group.gname}
+                                        </td>
                                     </tr>
                                 </ui:repeat>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <h3>Page: #{KisiselBilgilerBean.kPage}/#{KisiselBilgilerBean.kPageCount}</h3>
-                                    <h:commandButton styleClass="btn btn-sn btn-success" action="#{KisiselBilgilerBean.previous()}" value="Previous" />
-                                    <h:commandButton styleClass="btn btn-sn btn-success" action="#{KisiselBilgilerBean.next()}" value="Next" />
+                                    <h3>Page: #{UserBean.page}/#{UserBean.pageCount}</h3>
+                                    <h:commandButton styleClass="btn btn-sn btn-success" action="#{UserBean.previous()}" value="previous" />
+                                    <h:commandButton styleClass="btn btn-sn btn-success" action="#{UserBean.next()}" value="next" />
                                 </tr>
                             </tfoot>
                         </table>
@@ -60,26 +60,24 @@
                 <div class="col">
                     <h:form>
                         <div class="mb-3">
-                            <label>Personelin Tc Numarası:</label>
-                            <h:inputText value="#{KisiselBilgilerBean.entity.tc}" styleClass="form-control" required="true" requiredMessage="TC zorunludur!"/>
+                            <label>Group</label>
+                            <h:selectOneMenu styleClass="form-select" value="#{UserBean.entity.group}" converter="groupConverter">
+                                <f:selectItems value="#{GroupBean.list}" var="g" itemLabel="#{g.gname}" itemValue="#{g}"/>
+                            </h:selectOneMenu>
                         </div>
                         <div class="mb-3">
-                            <label>Personelin Adı Soyadı:</label>
-                            <h:inputText value="#{KisiselBilgilerBean.entity.adSoyad}" styleClass="form-control" required="true" requiredMessage="Ad Soyad Zorunludur!"/>
+                            <label>Email</label>
+                            <h:inputText value="#{UserBean.entity.email}" styleClass="form-control" required="true" requiredMessage="MAİL zorunludur!"/>
                         </div>
                         <div class="mb-3">
-                            <label>Personelin Doğum Tarihi:</label>
-                            <h:inputText value="#{KisiselBilgilerBean.entity.dogumTarihi}" styleClass="form-control" required="true" requiredMessage="Doğum Tarihi Zorunludur!"/>
+                            <label>Password</label>
+                            <h:inputSecret value="#{UserBean.entity.pass}" styleClass="form-control" required="true" requiredMessage="Password zorunludur!"/>
                         </div>
                         <div class="mb-3">
-                            <label>Personelin Medeni Hali:</label>
-                            <h:inputText value="#{KisiselBilgilerBean.entity.medeniHali}" styleClass="form-control" required="true" requiredMessage="Medeni Hali Zorunludur!"/>
-                        </div>
-                        <div class="mb-3">
-                            <h:commandButton styleClass="btn btn-success" rendered="#{KisiselBilgilerBean.entity.tc==null}" action="#{KisiselBilgilerBean.create}" value="Create"/>
-                            <h:commandButton styleClass="btn btn-secondary" rendered="#{KisiselBilgilerBean.entity.tc != null}" action="#{KisiselBilgilerBean.clear}" value="Clear Form"/>
-                            <h:commandButton styleClass="btn btn-primary" rendered="#{KisiselBilgilerBean.entity.tc != null}" action="#{KisiselBilgilerBean.update}" value="Update"/>
-                            <h:commandButton styleClass="btn btn-danger" rendered="#{KisiselBilgilerBean.entity.tc != null}" action="#{KisiselBilgilerBean.delete}" value="Delete"/>
+                            <h:commandButton styleClass="btn btn-success" rendered="#{UserBean.entity.id==null}" action="#{UserBean.create}" value="Create"/>
+                            <h:commandButton styleClass="btn btn-secondary" rendered="#{UserBean.entity.id != null}" action="#{UserBean.clear}" value="Clear Form"/>
+                            <h:commandButton styleClass="btn btn-primary" rendered="#{UserBean.entity.id != null}" action="#{UserBean.update}" value="Update"/>
+                            <h:commandButton styleClass="btn btn-danger" rendered="#{UserBean.entity.id != null}" action="#{UserBean.delete}" value="Delete"/>
                         </div>
                     </h:form>
                     <h:messages style="color:red; font-size: 10pt;"/>
@@ -88,4 +86,3 @@
         </div>
     </h:body>
 </html>
-

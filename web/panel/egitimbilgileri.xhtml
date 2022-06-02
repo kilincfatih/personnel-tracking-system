@@ -29,29 +29,32 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>PERSONELIN TC NUMARASI</th>
-                                    <th>PERSONELIN ADI SOYADI</th>
-                                    <th>PERSONELIN DOGUM TARIHI</th>
-                                    <th>PERSONELIN MEDENI HALI</th>
+                                    <th>PERSONELIN ORTAOKUL</th>
+                                    <th>PERSONELIN LISE</th>
+                                    <th>PERSONELIN UNIVERSITE</th>
+                                    <th>PERSONELIN YABANCI DIL</th>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <ui:repeat value="#{KisiselBilgilerBean.list}" var="k">
+                                <ui:repeat value="#{EgitimBilgileriBean.list}" var="k">
                                     <tr>
                                         <td>#{k.id}</td>
                                         <td>
-                                            <h:commandLink action="#{KisiselBilgilerBean.setEntity(k)}" value="#{k.tc}"/>
+                                            <h:commandLink action="#{EgitimBilgileriBean.setEntity(k)}" value="#{k.tc}"/>
                                         </td>
-                                        <td>#{k.adSoyad}</td>
-                                        <td>#{k.dogumTarihi}</td>
-                                        <td>#{k.medeniHali}</td>
+                                        <td>#{k.ortaokul}</td>
+                                        <td>#{k.lise}</td>
+                                        <td>#{k.universite}</td>
+                                        <td>#{k.yabanciDil}</td>
                                     </tr>
                                 </ui:repeat>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <h3>Page: #{KisiselBilgilerBean.kPage}/#{KisiselBilgilerBean.kPageCount}</h3>
-                                    <h:commandButton styleClass="btn btn-sn btn-success" action="#{KisiselBilgilerBean.previous()}" value="Previous" />
-                                    <h:commandButton styleClass="btn btn-sn btn-success" action="#{KisiselBilgilerBean.next()}" value="Next" />
+                                    <h3>Page: #{EgitimBilgileriBean.page}/#{EgitimBilgileriBean.pageCount}</h3>
+                                    <h:commandButton styleClass="btn btn-sn btn-success" action="#{EgitimBilgileriBean.previous()}" value="previous" />
+                                    <h:commandButton styleClass="btn btn-sn btn-success" action="#{EgitimBilgileriBean.next()}" value="next" />
                                 </tr>
                             </tfoot>
                         </table>
@@ -61,25 +64,29 @@
                     <h:form>
                         <div class="mb-3">
                             <label>Personelin Tc Numarası:</label>
-                            <h:inputText value="#{KisiselBilgilerBean.entity.tc}" styleClass="form-control" required="true" requiredMessage="TC zorunludur!"/>
+                            <h:inputText value="#{EgitimBilgileriBean.entity.tc}" styleClass="form-control" required="true" requiredMessage="TC zorunludur!"/>
                         </div>
                         <div class="mb-3">
-                            <label>Personelin Adı Soyadı:</label>
-                            <h:inputText value="#{KisiselBilgilerBean.entity.adSoyad}" styleClass="form-control" required="true" requiredMessage="Ad Soyad Zorunludur!"/>
+                            <label>Personelin Ortaokul:</label>
+                            <h:inputText value="#{EgitimBilgileriBean.entity.ortaokul}" styleClass="form-control"/>
                         </div>
                         <div class="mb-3">
-                            <label>Personelin Doğum Tarihi:</label>
-                            <h:inputText value="#{KisiselBilgilerBean.entity.dogumTarihi}" styleClass="form-control" required="true" requiredMessage="Doğum Tarihi Zorunludur!"/>
+                            <label>Personelin Lise:</label>
+                            <h:inputText value="#{EgitimBilgileriBean.entity.lise}" styleClass="form-control"/>
                         </div>
                         <div class="mb-3">
-                            <label>Personelin Medeni Hali:</label>
-                            <h:inputText value="#{KisiselBilgilerBean.entity.medeniHali}" styleClass="form-control" required="true" requiredMessage="Medeni Hali Zorunludur!"/>
+                            <label>Personelin Üniversite:</label>
+                            <h:inputText value="#{EgitimBilgileriBean.entity.universite}" styleClass="form-control"/>
                         </div>
                         <div class="mb-3">
-                            <h:commandButton styleClass="btn btn-success" rendered="#{KisiselBilgilerBean.entity.tc==null}" action="#{KisiselBilgilerBean.create}" value="Create"/>
-                            <h:commandButton styleClass="btn btn-secondary" rendered="#{KisiselBilgilerBean.entity.tc != null}" action="#{KisiselBilgilerBean.clear}" value="Clear Form"/>
-                            <h:commandButton styleClass="btn btn-primary" rendered="#{KisiselBilgilerBean.entity.tc != null}" action="#{KisiselBilgilerBean.update}" value="Update"/>
-                            <h:commandButton styleClass="btn btn-danger" rendered="#{KisiselBilgilerBean.entity.tc != null}" action="#{KisiselBilgilerBean.delete}" value="Delete"/>
+                            <label>Personelin Yabancı Dil:</label>
+                            <h:inputText value="#{EgitimBilgileriBean.entity.yabanciDil}" styleClass="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <h:commandButton styleClass="btn btn-success" rendered="#{EgitimBilgileriBean.entity.tc==null}" action="#{EgitimBilgileriBean.create}" value="Create"/>
+                            <h:commandButton styleClass="btn btn-secondary" rendered="#{EgitimBilgileriBean.entity.tc != null}" action="#{EgitimBilgileriBean.clear}" value="Clear Form"/>
+                            <h:commandButton styleClass="btn btn-primary" rendered="#{EgitimBilgileriBean.entity.tc != null}" action="#{EgitimBilgileriBean.update}" value="Update"/>
+                            <h:commandButton styleClass="btn btn-danger" rendered="#{EgitimBilgileriBean.entity.tc != null}" action="#{EgitimBilgileriBean.delete}" value="Delete"/>
                         </div>
                     </h:form>
                     <h:messages style="color:red; font-size: 10pt;"/>

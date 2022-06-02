@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <title>Personel Bilgi Sistemi</title>
+    </h:head>
+    <h:body>
+        <h:form styleClass="my-3" style="text-align: center; ">
+            <h:commandButton styleClass="btn" action="/panel/kisiselbilgiler?faces-redirect=true" value="Kişisel Bilgiler" />
+            <h:commandButton styleClass="btn" action="/panel/ailebilgileri?faces-redirect=true" value="Aile Bilgileri" />
+            <h:commandButton styleClass="btn" action="/panel/departmanbilgileri?faces-redirect=true" value="Departman Bilgileri" />
+            <h:commandButton styleClass="btn" action="/panel/iletisimbilgileri?faces-redirect=true" value="İletişim Bilgileri" />
+            <h:commandButton styleClass="btn" action="/panel/egitimbilgileri?faces-redirect=true" value="Eğitim Bilgileri" />
+            <h:commandButton styleClass="btn" action="/panel/bankabilgileri?faces-redirect=true" value="Banka Bilgileri" />
+            <h:commandButton styleClass="btn" action="/panel/group?faces-redirect=true" value="System Group" />
+            <h:commandButton styleClass="btn" action="/panel/user?faces-redirect=true" value="System User" />
+            <h:commandButton styleClass="btn" action="/panel/privileges?faces-redirect=true" value="Privileges" />
+        </h:form>
+    </h:body>
+</html>

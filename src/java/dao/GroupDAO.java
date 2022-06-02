@@ -1,6 +1,6 @@
 package dao;
 
-import entity.KisiselBilgiler;
+import entity.SystemGroup;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -13,13 +13,29 @@ import util.DBConnection;
  * @author Fatih KILINÇ - 02205076006
  * @author Eren ALPARSLAN - 02205076019
  */
-public class KisiselBilgilerDAO extends DBConnection {
+public class GroupDAO extends DBConnection {
 
-    public void create(KisiselBilgiler k) {
+    public SystemGroup getById(Long id) {
+        SystemGroup sg = null;
+        try {
+            Statement st = this.getConnect().createStatement();
+            String query = "select * from systemgroup order by id asc";
+            ResultSet rs = st.executeQuery(query);
+            rs.next();
+
+            sg = new SystemGroup(rs.getLong("id"), rs.getString("gname"));
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return sg;
+    }
+
+    public void create(SystemGroup k) {
 
         try {
             Statement st = this.getConnect().createStatement();
-            String query = "insert into kisisel_bilgiler (tc, ad_soyad, dogum_tarihi, medeni_hali) values ('" + k.getTc() + "', '" + k.getAdSoyad() + "', '" + k.getDogumTarihi() + "', '" + k.getMedeniHali() + "')";
+            String query = "insert into systemgroup (gname) values ('" + k.getGname() + "')";
             st.executeUpdate(query);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -27,12 +43,11 @@ public class KisiselBilgilerDAO extends DBConnection {
 
     }
 
-    public void update(KisiselBilgiler k) {
+    public void update(SystemGroup k) {
 
         try {
             Statement st = this.getConnect().createStatement();
-            String query = "update kisisel_bilgiler set tc ='" + k.getTc() + "', ad_soyad='" + k.getAdSoyad() + "', dogum_tarihi='" + k.getDogumTarihi() + "', medeni_hali='" + k.getMedeniHali() + "'  where id=" + k.getId();
-
+            String query = "update systemgroup set gname='" + k.getGname() + "' where id='" + k.getId();
             st.executeUpdate(query);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -40,11 +55,11 @@ public class KisiselBilgilerDAO extends DBConnection {
 
     }
 
-    public void delete(KisiselBilgiler k) {
+    public void delete(SystemGroup k) {
 
         try {
             Statement st = this.getConnect().createStatement();
-            String query = "delete from kisisel_bilgiler where id=" + k.getId();
+            String query = "delete from systemgroup where id=" + k.getId();
             st.executeUpdate(query);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -52,16 +67,17 @@ public class KisiselBilgilerDAO extends DBConnection {
 
     }
 
-    public List<KisiselBilgiler> getList() {
-        List<KisiselBilgiler> list = new ArrayList<>();
+    public List<SystemGroup> getList(int page) {
+        int offset = (page - 1) * 5;
+        List<SystemGroup> list = new ArrayList<>();
         try {
             Statement st = this.getConnect().createStatement();
-            String query = "select * from kisisel_bilgiler order by id asc";
+            String query = "select * from systemgroup order by id asc limit 5 offset " + offset;
 
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                list.add(new KisiselBilgiler(rs.getInt("id"), rs.getString("tc"), rs.getString("ad_soyad"), rs.getString("dogum_tarihi"), rs.getString("medeni_hali")));
+                list.add(new SystemGroup(rs.getLong("id"), rs.getString("gname")));
             }
 
         } catch (Exception e) {
@@ -70,17 +86,17 @@ public class KisiselBilgilerDAO extends DBConnection {
         return list;
     }
 
-    public List<KisiselBilgiler> getList(int kPage) {
-        int offset = (kPage - 1) * 5;
-        List<KisiselBilgiler> list = new ArrayList<>();
+    public List<SystemGroup> getList() {
+
+        List<SystemGroup> list = new ArrayList<>();
         try {
             Statement st = this.getConnect().createStatement();
-            String query = "select * from kisisel_bilgiler order by id asc limit 5 offset " + offset;
+            String query = "select * from systemgroup order by id asc";
 
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                list.add(new KisiselBilgiler(rs.getInt("id"), rs.getString("tc"), rs.getString("ad_soyad"), rs.getString("dogum_tarihi"), rs.getString("medeni_hali")));
+                list.add(new SystemGroup(rs.getLong("id"), rs.getString("gname")));
             }
 
         } catch (Exception e) {
